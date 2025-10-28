@@ -49,10 +49,15 @@ def transform_data(data : pd.DataFrame,
         
         np.save(final_save_path/patient_id,dcm_array)
 
+        if train_or_val == "train":
+           np.save(f"{save_path}/{train_or_val}_subjects",train_ids)
+        else:
+            np.save(f"{save_path}/{train_or_val}_subjects",val_ids)
+
         
 
 
-def calculate_mean_str(train_path:str) -> tuple[float, float]:
+def calculate_mean_std(train_path:Path) -> tuple[float, float]:
 
     """
     Computes the mean and standard deviation of all images in the training set.
@@ -70,7 +75,7 @@ def calculate_mean_str(train_path:str) -> tuple[float, float]:
         Standard deviation of pixel values across all training images.
     """
 
-    train_folder = Path(train_path)
+    train_folder = train_path
     npy_files = list(train_folder.glob("*.npy"))
 
     sums, sums_squared = 0.0, 0.0
