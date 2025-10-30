@@ -46,8 +46,6 @@ class CardiacDetectionDataset(torch.utils.data.Dataset):
         if img.ndim == 2:
             img = np.expand_dims(img, axis=-1)
 
-        
-
         if self.augment:
             # Set seed for reproducibility (important for DataLoader workers)
             seed = torch.randint(0,100000,(1,)).item()
@@ -61,9 +59,12 @@ class CardiacDetectionDataset(torch.utils.data.Dataset):
             bbox = transformed["bboxes"][0]
 
         # Standardization
-        mean, std = calculate_mean_std(self.root_path)
-        print(mean)
-        print(std)
+        if "train" not in self.root_path:
+            train_root_path =self.root_path.replace("val","train")
+        else:
+            train_root_path =self.root_path
+
+        mean, std = calculate_mean_std(train_root_path)
         img = (img - mean) / std
 
         # Convert to tensor (C, H, W)
