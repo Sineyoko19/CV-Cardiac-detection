@@ -59,8 +59,8 @@ class CardiacDetectionDataset(torch.utils.data.Dataset):
             bbox = transformed["bboxes"][0]
 
         # Standardization
-        if "train" not in self.root_path:
-            train_root_path =self.root_path.replace("val","train")
+        if "train" not in str(self.root_path):
+            train_root_path =Path(str(self.root_path).replace("val","train"))
         else:
             train_root_path =self.root_path
 

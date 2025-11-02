@@ -2,24 +2,24 @@ import pandas as pd
 import albumentations as A
 import matplotlib.pyplot as plt
 import matplotlib.patches as patch
+
 from pathlib import Path
 from utils import transform_data
 from models.cardiac_dataset import CardiacDetectionDataset
-import matplotlib.pyplot as plt
+from pathnames import (ROOT_PATH,
+                       SAVE_PATH,
+                       PATH_TO_DATA_CSV,
+                       TRAIN_PATIENTS,
+                       TRAIN_ROOT_PATH,
+                       VAL_PATIENTS,
+                       VAL_ROOT_PATH)
 
-#data_hd = pd.read_csv("data/raw/rsna_heart_detection.csv")
-    
-#ROOT_PATH = Path("data/raw/stage_2_train_images/") 
-#SAVE_PATH = Path("data/processed/Processed_heart_detection/")
 
-# apply data preprocessing
-
-#transform_data(data_hd, ROOT_PATH, SAVE_PATH)
 
 # create dataset so that the bounding box around the heart is scaled according to the data augmentation applied to each xray image during the transformation needed for the training
-path_to_data_csv = "data/raw/rsna_heart_detection.csv"
-patients = "data/processed/Processed_heart_detection/train_subjects.npy"
-train_root_path = "data/processed/Processed_heart_detection/train"
+path_to_data_csv = PATH_TO_DATA_CSV
+patients = TRAIN_PATIENTS
+train_root_path = TRAIN_ROOT_PATH
 data_augmentation = A.Compose([
     A.RandomGamma(gamma_limit=(80, 120), p=1.0) ,
     A.Affine(

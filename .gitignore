@@ -2,3 +2,4 @@ data/raw/stage_2_train_images
 data/processed/*
 __pycache__/
 *.py[cod]
+lightning_logs

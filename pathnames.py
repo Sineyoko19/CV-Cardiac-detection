@@ -1,0 +1,7 @@
+ROOT_PATH = "data/raw/stage_2_train_images/"
+SAVE_PATH = "data/processed/Processed_heart_detection/"
+PATH_TO_DATA_CSV = "data/raw/rsna_heart_detection.csv"
+TRAIN_PATIENTS = "data/processed/Processed_heart_detection/train_subjects.npy"
+TRAIN_ROOT_PATH = SAVE_PATH + "train"
+VAL_PATIENTS = "data/processed/Processed_heart_detection/val_subjects.npy"
+VAL_ROOT_PATH = SAVE_PATH + "val"
