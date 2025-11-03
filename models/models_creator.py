@@ -37,9 +37,11 @@ class CnnCardiacDetectorModel(pl.LightningModule):
             nn.MaxPool2d(kernel_size=(2, 2)),
         )
 
+        self.global_pool = nn.AdaptiveAvgPool2d(1) #TO reduce the size and fasten the training 
+
         self.fc_layer = nn.Sequential(
             nn.Flatten(),
-            nn.Linear(32 * 28 * 28, 128),
+            nn.Linear(32, 128),
             nn.ReLU(),
             nn.Dropout(0.5),
             nn.Linear(128, 4),
@@ -49,6 +51,7 @@ class CnnCardiacDetectorModel(pl.LightningModule):
 
     def forward(self, data):
         data = self.convlayers(data)
+        data = self.global_pool(data)
         data = self.fc_layer(data)
         return data
 
