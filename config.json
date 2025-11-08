@@ -1,5 +1,8 @@
 {
-"batch_size":10,
+"batch_size":96,
 "num_workers":8,
-"n_epochs":30
+"n_epochs":30,
+"eval":{
+"checkpoint_path":"lightning_logs/cardiac_model/version_1/checkpoints/epoch=26-step=1079.ckpt"
+}
 }

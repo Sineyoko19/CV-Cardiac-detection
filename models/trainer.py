@@ -6,6 +6,7 @@ from pytorch_lightning.callbacks import ModelCheckpoint
 from pytorch_lightning.loggers import TensorBoardLogger
 from models.cardiac_dataset import CardiacDetectionDataset
 from models.models_creator import CnnCardiacDetectorModel
+from models.models_creator import ResNetCardiacDetectorModel
 from pathnames import (
     PATH_TO_DATA_CSV,
     TRAIN_PATIENTS,
@@ -54,9 +55,9 @@ if __name__ == "__main__":
         shuffle=False,
     )
 
-    model = CnnCardiacDetectorModel()
+    model = ResNetCardiacDetectorModel()
     checkpoint = ModelCheckpoint(monitor="Val Loss", save_top_k=10, mode="min")
-    logger = TensorBoardLogger("lightning_logs", name="cardiac_model")
+    logger = TensorBoardLogger("lightning_logs", name="resnet_model")
 
     trainer = pl.Trainer(
         logger=logger,
