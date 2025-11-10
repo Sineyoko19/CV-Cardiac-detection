@@ -30,24 +30,25 @@ pip install -r requirements.txt
 ## Project Structure
 
 CV-Cardiac-detection/
-│  
+│
 ├─ data/
-│   ├─ raw/                
-│   │   ├─ stage_2_train_images/  # raw X-ray/image files
-│   │   └─ rsna_heart_detection_csv/  # X-ray labelled
-│  
-├─ notebook/                # notebooks for exploratory work  
-│  
-├─ src/                     # source code  
-│   ├─ models/              # model pipeline   
+│   └─ raw/
+│       ├─ stage_2_train_images/     # raw X-ray/image files
+│       └─ rsna_heart_detection_csv/ # X-ray labelled
+│
+├─ notebook/                         # notebooks for exploratory work
+│
+├─ src/                              # source code
+│   ├─ models/                       # model pipeline
 │   │   ├─ models_creator.py
 │   │   ├─ trainer.py
-│   │   └─ eval.py            
-│   ├─ cardiac_dataset.py   # Augmented data creator
-│   └─ main.py              # entry point  
-│  
-├─ requirements.txt  
-└─ config.json              # configuration file (paths/checkpoints)  
+│   │   └─ eval.py
+│   ├─ cardiac_dataset.py            # Augmented data creator
+│   └─ main.py                       # entry point
+│
+├─ requirements.txt
+└─ config.json                        # configuration file (paths/checkpoints)
+
  
 
 ## Model Evaluation
