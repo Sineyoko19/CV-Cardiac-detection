@@ -27,30 +27,6 @@ source venv/bin/activate   # (or `venv\Scripts\activate` on Windows)
 pip install -r requirements.txt
 ```
 
-## Project Structure
-
-CV-Cardiac-detection/
-│
-├─ data/
-│   └─ raw/
-│       ├─ stage_2_train_images/     # raw X-ray/image files
-│       └─ rsna_heart_detection_csv/ # X-ray labelled
-│
-├─ notebook/                         # notebooks for exploratory work
-│
-├─ src/                              # source code
-│   ├─ models/                       # model pipeline
-│   │   ├─ models_creator.py
-│   │   ├─ trainer.py
-│   │   └─ eval.py
-│   ├─ cardiac_dataset.py            # Augmented data creator
-│   └─ main.py                       # entry point
-│
-├─ requirements.txt
-└─ config.json                        # configuration file (paths/checkpoints)
-
- 
-
 ## Model Evaluation
 The evaluation function loads a specified model checkpoint (via checkpoint_file),
 runs inference on the validation dataset (no gradient computation), concatenates predictions and labels, and then computes Mean Absolute Error (MAE) per output variable across all patients.
