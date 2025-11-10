@@ -33,21 +33,22 @@ CV-Cardiac-detection/
 │  
 ├─ data/
 │   ├─ raw/                
-│      ├─ stage_2_train_images/  # raw X-ray/image files
-|      ├─ rsna_heart_detection_csv  # X-ray labelled
-|
+│   │   ├─ stage_2_train_images/  # raw X-ray/image files
+│   │   └─ rsna_heart_detection_csv/  # X-ray labelled
+│  
 ├─ notebook/                # notebooks for exploratory work  
 │  
 ├─ src/                     # source code  
-│   ├─ models/  # model pipeline   
-|      ├─ models_creator.py
-|      ├─ trainer.py
-|     ├─ eval.py            
+│   ├─ models/              # model pipeline   
+│   │   ├─ models_creator.py
+│   │   ├─ trainer.py
+│   │   └─ eval.py            
 │   ├─ cardiac_dataset.py   # Augmented data creator
 │   └─ main.py              # entry point  
 │  
 ├─ requirements.txt  
 └─ config.json              # configuration file (paths/checkpoints)  
+ 
 
 ## Model Evaluation
 The evaluation function loads a specified model checkpoint (via checkpoint_file),
