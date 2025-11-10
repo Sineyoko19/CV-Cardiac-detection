@@ -1,6 +1,6 @@
 import torch
 import json
-from src.models.cardiac_dataset import CardiacDetectionDataset
+from src.cardiac_dataset import CardiacDetectionDataset
 from src.pathnames import (
     PATH_TO_DATA_CSV,
     VAL_PATIENTS,
