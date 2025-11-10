@@ -1,8 +1,11 @@
 {
 "batch_size":96,
-"num_workers":8,
-"n_epochs":30,
-"eval":{
-"checkpoint_path":"lightning_logs/cardiac_model/version_1/checkpoints/epoch=26-step=1079.ckpt"
-}
+"num_workers":0,
+"n_epochs":150,
+"eval": {
+    "checkpoint_path": [
+      "lightning_logs/cardiac_model/version_1/checkpoints/epoch=26-step=1079.ckpt",
+      "lightning_logs/resnet_model/version_1/checkpoints/epoch=148-step=5959.ckpt"
+    ]
+  }
 }

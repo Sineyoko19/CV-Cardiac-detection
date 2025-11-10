@@ -44,25 +44,25 @@ if __name__ == "__main__":
 
     train_dataloader = torch.utils.data.DataLoader(
         train_cardiac_data,
-        batch_size=configs["batch_size"],
-        num_workers=configs["num_workers"],
-        shuffle=True,
+        batch_size = configs["batch_size"],
+        num_workers = configs["num_workers"],
+        shuffle = True,
     )
     val_dataloader = torch.utils.data.DataLoader(
         val_cardiac_data,
         batch_size = configs["batch_size"],
-        num_workers=configs["num_workers"],
+        num_workers = configs["num_workers"],
         shuffle=False,
     )
 
     model = ResNetCardiacDetectorModel()
     checkpoint = ModelCheckpoint(monitor="Val Loss", save_top_k=10, mode="min")
-    logger = TensorBoardLogger("lightning_logs", name="resnet_model")
+    logger = TensorBoardLogger("lightning_logs", name = configs["logger_name"])
 
     trainer = pl.Trainer(
-        logger=logger,
-        log_every_n_steps=1,
-        callbacks=checkpoint,
-        max_epochs=configs["n_epochs"],
+        logger = logger,
+        log_every_n_steps = 1,
+        callbacks = checkpoint,
+        max_epochs = configs["n_epochs"],
     )
     trainer.fit(model, train_dataloader, val_dataloader)

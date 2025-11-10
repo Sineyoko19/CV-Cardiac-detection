@@ -1,17 +1,23 @@
 import torch
 import json
 from models.cardiac_dataset import CardiacDetectionDataset
-from models.models_creator import CnnCardiacDetectorModel
 from pathnames import (
     PATH_TO_DATA_CSV,
     VAL_PATIENTS,
     VAL_ROOT_PATH,
 )
 
-if __name__ == "__main__":
+def model_eval (model : torch.nn.Module , checkpoint_file:str) -> list :
+    """
+    Loads a trained model from a checkpoint and evaluates it on the validation set.
 
-    with open("config.json", "r") as f:
-        configs = json.load(f)
+    Args:
+        model (torch.nn.Module): Model to evaluate.
+        checkpoint_file (str): Path to the saved model checkpoint.
+
+    Returns:
+        list: Mean Absolute Error (MAE) per output on the validation set.
+    """
 
     path_to_data_csv = PATH_TO_DATA_CSV
     val_patients = VAL_PATIENTS
@@ -23,14 +29,12 @@ if __name__ == "__main__":
 
     val_dataloader = torch.utils.data.DataLoader(
         val_cardiac_data,
-        batch_size = configs["batch_size"],
-        num_workers=configs["num_workers"],
+        batch_size = 96 ,
+        num_workers = 0,
         shuffle=False,
     )
 
-    checkpoint = torch.load(configs["eval"]["checkpoint_path"])
-   
-    model = CnnCardiacDetectorModel()  
+    checkpoint = torch.load(checkpoint_file)
     model.load_state_dict(checkpoint["state_dict"])
     model.eval()
 
@@ -40,7 +44,6 @@ if __name__ == "__main__":
         for data, label in val_dataloader:
             data = data.float()
             pred = model(data)
-            print(pred.shape)
             preds.append(pred)
             labels.append(label)
 
@@ -49,4 +52,6 @@ if __name__ == "__main__":
 
     # MAE per output across all patients
     mae_per_output = torch.abs(preds - labels).mean(dim=0)
-    print(mae_per_output)
+
+    return mae_per_output
+    
