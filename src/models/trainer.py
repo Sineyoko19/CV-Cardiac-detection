@@ -4,10 +4,10 @@ import albumentations as A
 import pytorch_lightning as pl
 from pytorch_lightning.callbacks import ModelCheckpoint
 from pytorch_lightning.loggers import TensorBoardLogger
-from models.cardiac_dataset import CardiacDetectionDataset
-from models.models_creator import CnnCardiacDetectorModel
-from models.models_creator import ResNetCardiacDetectorModel
-from pathnames import (
+from src.models.cardiac_dataset import CardiacDetectionDataset
+from src.models.models_creator import CnnCardiacDetectorModel
+from src.models.models_creator import ResNetCardiacDetectorModel
+from src.pathnames import (
     PATH_TO_DATA_CSV,
     TRAIN_PATIENTS,
     TRAIN_ROOT_PATH,
@@ -17,7 +17,7 @@ from pathnames import (
 
 if __name__ == "__main__":
 
-    with open("config.json", "r") as f:
+    with open("src/config.json", "r") as f:
         configs = json.load(f)
 
     path_to_data_csv = PATH_TO_DATA_CSV
