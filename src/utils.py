@@ -76,7 +76,6 @@ def calculate_mean_std(train_path: Path) -> tuple[float, float]:
     """
 
     npy_files = list(train_path.glob("*.npy"))
-
     sums, sums_squared = 0.0, 0.0
     num_images = len(npy_files)
     num_pixels = 224 * 224  # adjust if size changes

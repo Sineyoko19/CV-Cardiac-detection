@@ -2,6 +2,7 @@
 "batch_size":96,
 "num_workers":0,
 "n_epochs":150,
+"logger_name":"resnet_model",
 "eval": {
     "checkpoint_path": [
       "lightning_logs/cardiac_model/version_1/checkpoints/epoch=26-step=1079.ckpt",

@@ -1,7 +1,7 @@
 import json
 import pandas as pd
-from src.models.eval import model_eval
-from src.models.models_creator import CnnCardiacDetectorModel, ResNetCardiacDetectorModel
+from eval import model_eval
+from models_creator import CnnCardiacDetectorModel, ResNetCardiacDetectorModel
 
 if __name__ == "__main__":
 
