@@ -1,7 +1,7 @@
 import torch
 import json
-from src.cardiac_dataset import CardiacDetectionDataset
-from src.pathnames import (
+from cardiac_dataset import CardiacDetectionDataset
+from pathnames import (
     PATH_TO_DATA_CSV,
     VAL_PATIENTS,
     VAL_ROOT_PATH,
@@ -47,8 +47,9 @@ def model_eval (model : torch.nn.Module , checkpoint_file:str) -> list :
             preds.append(pred)
             labels.append(label)
 
-    preds = torch.cat(preds, dim=0)   
-    labels = torch.cat(labels, dim=0) 
+    preds = torch.cat(preds, dim=0)  
+    labels = torch.cat(labels, dim=0)
+
 
     # MAE per output across all patients
     mae_per_output = torch.abs(preds - labels).mean(dim=0)
