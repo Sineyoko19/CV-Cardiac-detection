@@ -21,7 +21,7 @@ def transform_predict(file) -> torch.tensor :
 
     dcm_file = pydicom.dcmread(BytesIO(file.read()))
     dcm_pixel_array = (cv2.resize(dcm_file.pixel_array, (224, 224)) / 255).astype(
-            np.float16
+            np.float32
         )
     
     df = pd.read_csv("app/static/mean_std.csv")
@@ -34,9 +34,9 @@ def transform_predict(file) -> torch.tensor :
 
     img_tensor = transform(dcm_pixel_array).unsqueeze(0)
 
-    return img_tensor
+    return img_tensor, dcm_pixel_array
 
-def predict_bbox( img_tensor: torch.tensor, checkpoint_file : str, model : torch.nn.module ) -> list:
+def predict_bbox( img_tensor: torch.tensor, checkpoint_file : str, model : torch.nn.modules ) -> list:
     """
     Predict the 4 values representing the coordinates of the heart position 
     according to the image tensor given.

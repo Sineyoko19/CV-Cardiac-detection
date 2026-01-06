@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <title>CARDIAC DETECTION</title>
+    </head>
+       
+    <body>
+        <br>
+        <fieldset>
+            <h3>Please Upload your Dicom file here:</h3>
+            <form action="/predicted" method="post" enctype="multipart/form-data">
+                <input type="file" name="dicom_file" accept=".dcm" required>
+                <br><br>
+                <button type="submit">Upload and Predict</button>
+            </form>
+        </fieldset>
+    </body>
+</html>
