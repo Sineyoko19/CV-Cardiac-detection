@@ -5,7 +5,7 @@ import numpy as np
 from pathlib import Path
 import albumentations as A
 from albumentations.pytorch import ToTensorV2
-from utils import calculate_mean_std
+from .utils import calculate_mean_std
 
 
 class CardiacDetectionDataset(torch.utils.data.Dataset):

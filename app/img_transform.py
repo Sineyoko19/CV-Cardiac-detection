@@ -1,4 +1,6 @@
 import cv2
+import sys
+import os
 import pydicom
 import torch
 import pydicom
@@ -6,6 +8,11 @@ import numpy as np
 import pandas as pd
 from io import BytesIO
 from torchvision import transforms
+
+
+project_root = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, project_root)
+
 
 def transform_predict(file) -> torch.tensor :
     """

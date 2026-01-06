@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Detection Results | Cardiac Detection</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='results.css') }}">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    </head>
+       
+    <body>
+        <div class="container">
+            <div class="header">
+                <div class="icon">✅</div>
+                <h1>Detection Complete</h1>
+                <p>Heart position successfully identified</p>
+            </div>
+
+            <div class="result-section">
+                <div class="image-container">
+                    <h3>📊 Analysis Result</h3>
+                    <div class="image-wrapper">
+                        <img id="resultImage" src="data:image/png;base64,{{ image_data }}" alt="Chest X-Ray with Detection">
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <div class="info-icon">ℹ️</div>
+                    <div class="info-text">
+                        <strong>Note:</strong> The red bounding box indicates the detected heart position in the chest X-ray. 
+                        The AI model has successfully identified and localized the cardiac region.
+                    </div>
+                </div>
+            </div>
+
+            <div class="actions">
+                <a href="/" class="btn btn-primary">
+                    🔄 Analyze Another Image
+                </a>
+            </div>
+        </div>
+
+        <script>
+            function downloadImage() {
+                // Get the image element
+                const img = document.getElementById('resultImage');
+                
+                // Create a canvas to convert the image
+                const canvas = document.createElement('canvas');
+                canvas.width = img.naturalWidth;
+                canvas.height = img.naturalHeight;
+                
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0);
+                
+                // Convert canvas to blob and download
+                canvas.toBlob(function(blob) {
+                    const url = URL.createObjectURL(blob);
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.download = 'cardiac_detection_result.png';
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    URL.revokeObjectURL(url);
+                }, 'image/png');
+            }
+        </script>
+    </body>
+</html>

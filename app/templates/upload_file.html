@@ -1,19 +1,131 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>CARDIAC DETECTION</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Cardiac Detection | AI-Powered Heart Analysis</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     </head>
        
     <body>
-        <br>
-        <fieldset>
-            <h3>Please Upload your Dicom file here:</h3>
-            <form action="/predicted" method="post" enctype="multipart/form-data">
-                <input type="file" name="dicom_file" accept=".dcm" required>
-                <br><br>
-                <button type="submit">Upload and Predict</button>
+        <div class="container">
+            <div class="header">
+                <div class="icon-container">
+                    <div class="icon">❤️</div>
+                </div>
+                <h1>CARDIAC DETECTION</h1>
+                <p>AI-Powered Heart Position Detection System</p>
+            </div>
+
+            <form action="/" method="post" enctype="multipart/form-data" id="uploadForm">
+                <div class="upload-area" id="uploadArea">
+                    <div class="upload-icon">📁</div>
+                    <h3>Upload Your DICOM File</h3>
+                    <p>Click to browse or drag and drop your file here</p>
+                    <p class="format-hint">💡 Accepted format: .dcm (DICOM files only)</p>
+                    <input type="file" name="dicom_file" id="fileInput" accept=".dcm" required>
+                    <div class="file-name" id="fileName"></div>
+                </div>
+
+                <button type="submit" id="submitBtn" disabled>
+                    <span class="btn-text">🔍 Analyze & Detect Heart Position</span>
+                    <div class="spinner"></div>
+                </button>
             </form>
-        </fieldset>
+
+            <div class="info">
+                <h4>How It Works</h4>
+                <ul>
+                    <li>Upload a chest X-ray DICOM file from your device</li>
+                    <li>Our advanced AI model analyzes the medical image</li>
+                    <li>Receive precise heart position bounding box coordinates</li>
+                    <li>Results are generated in seconds with high accuracy</li>
+                </ul>
+            </div>
+        </div>
+
+        <script>
+            const uploadArea = document.getElementById('uploadArea');
+            const fileInput = document.getElementById('fileInput');
+            const fileName = document.getElementById('fileName');
+            const submitBtn = document.getElementById('submitBtn');
+            const uploadForm = document.getElementById('uploadForm');
+
+            // Click to upload
+            uploadArea.addEventListener('click', (e) => {
+                if (e.target !== fileInput) {
+                    fileInput.click();
+                }
+            });
+
+            // File selection handler
+            fileInput.addEventListener('change', (e) => {
+                handleFileSelect(e.target.files);
+            });
+
+            function handleFileSelect(files) {
+                if (files.length > 0) {
+                    const file = files[0];
+                    const fileSize = (file.size / 1024 / 1024).toFixed(2); // Size in MB
+                    fileName.innerHTML = `
+                        <div style="flex: 1;">
+                            <strong>${file.name}</strong>
+                            <div style="font-size: 0.85em; color: #64748b; margin-top: 4px;">
+                                ${fileSize} MB
+                            </div>
+                        </div>
+                    `;
+                    fileName.classList.add('show');
+                    submitBtn.disabled = false;
+                }
+            }
+
+            // Drag and drop handlers
+            uploadArea.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                uploadArea.classList.add('dragover');
+            });
+
+            uploadArea.addEventListener('dragleave', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                uploadArea.classList.remove('dragover');
+            });
+
+            uploadArea.addEventListener('drop', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                uploadArea.classList.remove('dragover');
+                
+                const files = e.dataTransfer.files;
+                if (files.length > 0) {
+                    // Check if it's a .dcm file
+                    if (files[0].name.toLowerCase().endsWith('.dcm')) {
+                        fileInput.files = files;
+                        handleFileSelect(files);
+                    } else {
+                        alert('Please upload a valid DICOM (.dcm) file.');
+                    }
+                }
+            });
+
+            // Form submission with loading state
+            uploadForm.addEventListener('submit', (e) => {
+                submitBtn.classList.add('loading');
+                submitBtn.disabled = true;
+            });
+
+            // Prevent accidental navigation
+            window.addEventListener('beforeunload', (e) => {
+                if (submitBtn.classList.contains('loading')) {
+                    e.preventDefault();
+                    e.returnValue = '';
+                }
+            });
+        </script>
     </body>
 </html>
