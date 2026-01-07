@@ -12,11 +12,13 @@ project_root = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, project_root)
 
 from app.img_transform import transform_predict, predict_bbox
+from app.cardiac_risk_eval import CardiacRiskEvaluation
 from src.models_creator import ResNetCardiacDetectorModel
 
 checkpoint_file = "app/static/resnet_cardiac_detection.ckpt"
 model = ResNetCardiacDetectorModel()
 last_result_image = None
+cardiac_eval = CardiacRiskEvaluation()
 
 app = Flask(__name__)
 @app.route("/")
@@ -42,7 +44,6 @@ def predicted():
     axis.imshow(dcm_pixel_array, cmap='bone')
     axis.add_patch(rect)
 
-    # Format plot BEFORE saving
     axis.axis('off')
     plt.tight_layout()
 
@@ -50,21 +51,21 @@ def predicted():
     img_io = BytesIO()
     plt.savefig(img_io, format='png', bbox_inches='tight', dpi=100)
     img_io.seek(0)
-    
-    # Store the bytes for download
-    last_result_image = img_io.read()
-    
     plt.close(fig)
     
     # Encode to base64 for display
-    image_base64 = base64.b64encode(last_result_image).decode('utf-8')
-    
-    print(f"Image stored: {len(last_result_image)} bytes")  # Debug line
+    image_base64 = base64.b64encode(img_io.read()).decode('utf-8')
+
+
+    # Cardiac risk evaluation
+    eval = cardiac_eval.comprehensive_assessment(img_tensor = img_tensor, heart_bbox = bbox)
+    report = cardiac_eval.generate_detailed_report(eval)
 
     return render_template(
         'results.html',
-        image_data=image_base64,
-        bbox=bbox 
+        image_data = image_base64,
+        bbox = bbox,
+        report_data = report
     )
   
 
