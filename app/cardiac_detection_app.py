@@ -11,8 +11,8 @@ from flask import request,render_template, jsonify, send_file
 project_root = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, project_root)
 
-from app.app_utils import transform_predict, predict_bbox
-from app.cardiac_risk_eval import CardiacRiskEvaluation
+from .app_utils import transform_predict, predict_bbox
+from .cardiac_risk_eval import CardiacRiskEvaluation
 from src.models_creator import ResNetCardiacDetectorModel
 
 model = ResNetCardiacDetectorModel()
