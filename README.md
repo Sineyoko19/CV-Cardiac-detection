@@ -1,3 +1,13 @@
+---
+title: Cardiac Detection
+emoji: ❤️
+colorFrom: red
+colorTo: pink
+sdk: docker
+app_port: 7860
+---
+
+
 # CV-Cardiac-detection  
 Use deep learning methodology to predict a bounding box around heart areas found in X-ray images.
 
