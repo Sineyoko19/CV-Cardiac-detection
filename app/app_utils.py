@@ -8,7 +8,7 @@ import numpy as np
 import pandas as pd
 from io import BytesIO
 from torchvision import transforms
-
+from huggingface_hub import hf_hub_download
 
 project_root = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, project_root)
@@ -48,7 +48,27 @@ def transform_predict(file) -> torch.tensor :
     img_tensor = img_tensor.unsqueeze(0)
     return img_tensor, dcm_pixel_array
 
-def predict_bbox( img_tensor: torch.Tensor, checkpoint_file : str, model : torch.nn.modules ) -> list:
+def hf_model_access(resnet_model:torch.nn.modules):
+    """
+    Allows access to the production model deployed on hugging face
+    
+    Args:
+    resnet_model: Developped mdel
+    type resnet_model: torch.nn.modules
+    """
+
+    # Download the model (it caches locally after first download)
+    model_path = hf_hub_download(
+        repo_id="AssitanSI/resnet_cardiac_detection",
+        filename="epoch=148-step=5959.ckpt"
+    )
+
+    # Load your model
+    model = resnet_model.load_from_checkpoint(model_path)
+
+    return model
+
+def predict_bbox( img_tensor: torch.Tensor, resnet_model : torch.nn.modules ) -> list:
     """
     Predict the 4 values representing the coordinates of the heart position 
     according to the image tensor given.
@@ -56,14 +76,13 @@ def predict_bbox( img_tensor: torch.Tensor, checkpoint_file : str, model : torch
     Args:
     img_tensor : tensor to use for the prediction
     checkpoint_file: model file
-    model : model class
+    resnet_model : resnet model class
 
     Return:
     bbox : list
     """
 
-    checkpoint = torch.load(checkpoint_file)
-    model.load_state_dict(checkpoint["state_dict"])
+    model = hf_model_access(resnet_model)
     model.eval()
 
     with torch.no_grad():
@@ -74,3 +93,4 @@ def predict_bbox( img_tensor: torch.Tensor, checkpoint_file : str, model : torch
     bbox[3] = bbox[3] - bbox[1]
 
     return bbox
+

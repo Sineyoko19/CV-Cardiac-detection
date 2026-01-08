@@ -11,11 +11,10 @@ from flask import request,render_template, jsonify, send_file
 project_root = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, project_root)
 
-from app.img_transform import transform_predict, predict_bbox
+from app.app_utils import transform_predict, predict_bbox
 from app.cardiac_risk_eval import CardiacRiskEvaluation
 from src.models_creator import ResNetCardiacDetectorModel
 
-checkpoint_file = "app/static/resnet_cardiac_detection.ckpt"
 model = ResNetCardiacDetectorModel()
 last_result_image = None
 cardiac_eval = CardiacRiskEvaluation()
@@ -36,7 +35,7 @@ def predicted():
         return jsonify({'error': 'No file selected'}), 400
     
     img_tensor, dcm_pixel_array = transform_predict(file)
-    bbox = predict_bbox(img_tensor=img_tensor, checkpoint_file=checkpoint_file, model=model)
+    bbox = predict_bbox(img_tensor=img_tensor, resnet_model=model)
 
     fig, axis = plt.subplots(1, 1, figsize=(8, 8))
     x,y,w,h = bbox[0],bbox[1],bbox[2],bbox[3] 
