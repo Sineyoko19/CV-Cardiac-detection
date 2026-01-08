@@ -1,7 +1,12 @@
 import torch
 import json
+<<<<<<< HEAD
 from .cardiac_dataset import CardiacDetectionDataset
 from .pathnames import (
+=======
+from cardiac_dataset import CardiacDetectionDataset
+from pathnames import (
+>>>>>>> 810d20ac4cc7e683ef29d23edf1cf8a7656c3819
     PATH_TO_DATA_CSV,
     VAL_PATIENTS,
     VAL_ROOT_PATH,

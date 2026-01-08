@@ -4,10 +4,17 @@ import albumentations as A
 import pytorch_lightning as pl
 from pytorch_lightning.callbacks import ModelCheckpoint
 from pytorch_lightning.loggers import TensorBoardLogger
+<<<<<<< HEAD
 from .cardiac_dataset import CardiacDetectionDataset
 from .models_creator import CnnCardiacDetectorModel
 from .models_creator import ResNetCardiacDetectorModel
 from .pathnames import (
+=======
+from cardiac_dataset import CardiacDetectionDataset
+from models_creator import CnnCardiacDetectorModel
+from models_creator import ResNetCardiacDetectorModel
+from pathnames import (
+>>>>>>> 810d20ac4cc7e683ef29d23edf1cf8a7656c3819
     PATH_TO_DATA_CSV,
     TRAIN_PATIENTS,
     TRAIN_ROOT_PATH,

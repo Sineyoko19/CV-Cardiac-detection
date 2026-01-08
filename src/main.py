@@ -1,7 +1,12 @@
 import json
 import pandas as pd
+<<<<<<< HEAD
 from .eval import model_eval
 from .models_creator import CnnCardiacDetectorModel, ResNetCardiacDetectorModel
+=======
+from eval import model_eval
+from models_creator import CnnCardiacDetectorModel, ResNetCardiacDetectorModel
+>>>>>>> 810d20ac4cc7e683ef29d23edf1cf8a7656c3819
 
 if __name__ == "__main__":
 
