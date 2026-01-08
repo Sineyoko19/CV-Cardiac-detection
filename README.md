@@ -5,40 +5,50 @@ colorFrom: red
 colorTo: pink
 sdk: docker
 app_port: 7860
+pinned: false
 ---
 
+# Cardiac Detection App
 
-# CV-Cardiac-detection  
-Use deep learning methodology to predict a bounding box around heart areas found in X-ray images.
+AI-powered cardiac detection and risk assessment application using deep learning.
 
-## Project Overview  
-This project is designed to detect and localize the heart region in chest X-ray images using a convolutional neural network. The goal is to generate bounding boxes around the heart area, 
-which can assist in downstream cardiac/clinical image-analysis workflows.
+## Features
+- Upload cardiac X-ray images for analysis
+- Real-time detection and classification
+- Bounding box prediction around heart areas
+- Risk assessment with detailed analysis
 
-## Features  
-- Load and preprocess chest X-ray image dataset  
-- Train a deep learning model to detect the heart region  
-- Evaluate on validation set and compute performance metrics  
-- Modular dataset and model code to support future extensions  
+## Project Overview
+This project uses deep learning methodology to predict bounding boxes around heart areas found in X-ray images. The model is trained on chest X-ray datasets to detect and localize the heart region, which can assist in downstream cardiac/clinical image-analysis workflows.
 
-## Getting Started  
+## Technology Stack
+- **Backend**: Flask
+- **ML Framework**: PyTorch
+- **Model**: ResNet-based cardiac detection
+- **Deployment**: Hugging Face Spaces (Docker)
 
-### Prerequisites  
-- Python 3.9 (or compatible)  
-- PyTorch  
-- Additional Python packages listed in `requirements.txt`
+## Local Development
 
-### Installation  
+### Prerequisites
+- Python 3.9+
+- PyTorch
+- Flask
+
+### Installation
 ```bash
-git clone https://github.com/Sineyoko19/CV-Cardiac-detection.git  
-cd CV-Cardiac-detection  
-python -m venv venv  
-source venv/bin/activate   # (or `venv\Scripts\activate` on Windows)  
+git clone https://github.com/Sineyoko19/CV-Cardiac-detection.git
+cd CV-Cardiac-detection
+python -m venv venv
+source venv/bin/activate   # (or `venv\Scripts\activate` on Windows)
 pip install -r requirements.txt
 ```
 
-## Model Evaluation
-The evaluation function loads a specified model checkpoint (via checkpoint_file),
-runs inference on the validation dataset (no gradient computation), concatenates predictions and labels, and then computes Mean Absolute Error (MAE) per output variable across all patients.
-Ensure your configuration lists the correct checkpoint path(s).
+### Running Locally
+```bash
+python app/cardiac_detection_app.py
+```
 
+Visit `http://localhost:7860` in your browser.
+
+## Model
+The model is hosted on Hugging Face Hub and automatically downloaded on first run.
