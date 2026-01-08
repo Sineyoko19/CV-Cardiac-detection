@@ -4,14 +4,9 @@ import cv2
 from torch import nn
 import pytorch_lightning as pl
 from pathlib import Path
-<<<<<<< HEAD
+
 from .utils import calculate_mean_std
 from .pathnames import TRAIN_ROOT_PATH
-=======
-from utils import calculate_mean_std
-from pathnames import TRAIN_ROOT_PATH
->>>>>>> 810d20ac4cc7e683ef29d23edf1cf8a7656c3819
-
 
 class CnnCardiacDetectorModel(pl.LightningModule):
     def __init__(self):
